@@ -11,9 +11,20 @@ import 'OnePlus.dart';
 import 'IPhoneDetails.dart';
 import 'OnePlusMobile.dart';
 import 'DellDetails.dart';
+import 'WishList.dart';
 
 int count = 0;
 num total=0;
+
+bool cheack=true;
+bool cheack1=true;
+bool cheack2=true;
+bool cheack3=true;
+bool cheack4=true;
+bool cheack5=true;
+bool cheack6=true;
+bool cheack7=true;
+bool cheack8=true;
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({Key? key}) : super(key: key);
@@ -23,15 +34,7 @@ class ProductScreen extends StatefulWidget {
 class ProductScreenState extends State<ProductScreen> {
 
 
-  bool cheack=true;
-  bool cheack1=true;
-  bool cheack2=true;
-  bool cheack3=true;
-  bool cheack4=true;
-  bool cheack5=true;
-  bool cheack6=true;
-  bool cheack7=true;
-  bool cheack8=true;
+
 
   List<dynamic?> adddata=[];
 
@@ -43,9 +46,6 @@ class ProductScreenState extends State<ProductScreen> {
 
   List<dynamic> image1=[
     "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/514NPRZ1AQL._SL1500_.jpg",];
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +111,16 @@ class ProductScreenState extends State<ProductScreen> {
               title: const Text('Home'),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.favorite,
+              ),
+              title: const Text('Wish List'),
+              onTap: () {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_) => WishList()));
               },
             ),
             ElevatedButton(onPressed: () async {

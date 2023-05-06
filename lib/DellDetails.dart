@@ -3,6 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'WishList.dart' as ws;
+import 'SuccessfullOrder.dart';
+
+bool cheacker=true;
 
 class DellDetails extends StatefulWidget {
   const DellDetails({Key? key}) : super(key: key);
@@ -23,7 +27,7 @@ class _DellDetailsState extends State<DellDetails> {
     "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/51Cn3ufXPrL._SL1080_.jpg"
   ];
   int? controller;
-  int count = 0;
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,9 +146,9 @@ class _DellDetailsState extends State<DellDetails> {
                     children: [
                       InkWell(
                         onTap: () {
-                          if (count == 0) {
+                          if (count == 1) {
                             setState(() {
-                              count = 0;
+                              count = 1;
                             });
                           } else {
                             setState(() {
@@ -213,19 +217,41 @@ class _DellDetailsState extends State<DellDetails> {
                 child: Card(
                   child: Row(
                     children: [
-                      InkWell(
+                      cheacker ? InkWell(
                         onTap: () {
+                          ws.wishlst.add("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/51l8GSWUUvL._SL1080_.jpg");
+                          ws.wishprice.add(57490);
+                          ws.wishname.add("Dell Inspiron 3520 Laptop");
+                          cheacker=false;
                           setState(() {
-                            count += 1;
+
                           });
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2.1,
-                          child: Center(child: Text("ADD TO CART")),
+                          child: Center(child: Text("ADD TO Wish List")),
                         ),
-                      ),
+                      ) : InkWell(
+                        onTap: () {
+                          ws.wishlst.remove("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/51l8GSWUUvL._SL1080_.jpg");
+                          ws.wishprice.remove(57490);
+                          ws.wishname.remove("Dell Inspiron 3520 Laptop");
+                          cheacker=true;
+                          setState(() {
+
+                          });
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/2.1,
+                          child: Center(child: Text("Remove To Wish List")),
+                        ),
+                      ) ,
+
+
                       InkWell(
                         onTap: (){
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) => SuccessFullOrder()));
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2,

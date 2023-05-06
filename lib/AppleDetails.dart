@@ -4,6 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import 'SuccessfullOrder.dart';
+import 'WishList.dart' as ws;
+bool cheacker=true;
+
 class AppleDetails extends StatefulWidget {
   const AppleDetails({Key? key}) : super(key: key);
 
@@ -21,7 +25,7 @@ class _AppleDetailsState extends State<AppleDetails> {
     "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/612RFK9-VgL._SL1500_.jpg"
   ];
   int? controller;
-  int count = 0;
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,9 +144,9 @@ class _AppleDetailsState extends State<AppleDetails> {
                     children: [
                       InkWell(
                         onTap: () {
-                          if (count == 0) {
+                          if (count == 1) {
                             setState(() {
-                              count = 0;
+                              count = 1;
                             });
                           } else {
                             setState(() {
@@ -211,19 +215,42 @@ class _AppleDetailsState extends State<AppleDetails> {
                 child: Card(
                   child: Row(
                     children: [
-                      InkWell(
+                      cheacker ? InkWell(
                         onTap: () {
+                          ws.wishlst.add("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/711BW6zqs0L._SL1500_.jpg");
+                          ws.wishprice.add(44900);
+                          ws.wishname.add("Apple Watch Series 7");
+                          cheacker=false;
+
                           setState(() {
-                            count += 1;
                           });
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2.1,
-                          child: Center(child: Text("ADD TO CART")),
+                          child: Center(child: Text("Add To Wish List")),
+                        ),
+                      ) : InkWell(
+                        onTap: () {
+                          ws.wishlst.remove("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/711BW6zqs0L._SL1500_.jpg");
+                          ws.wishprice.remove(44900);
+                          ws.wishname.remove("Apple Watch Series 7");
+                          cheacker=true;
+                          setState(() {
+                          });
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/2.1,
+                          child: Center(child: Text("Remove to Wish List")),
                         ),
                       ),
+
+
+
+
                       InkWell(
                         onTap: (){
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) => SuccessFullOrder()));
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2,

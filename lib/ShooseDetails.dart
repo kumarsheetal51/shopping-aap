@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'WishList.dart' as ws;
+import 'SuccessfullOrder.dart';
 
+bool cheacker = true;
 class ShooseDetails extends StatefulWidget {
   const ShooseDetails({Key? key}) : super(key: key);
 
@@ -21,7 +24,7 @@ class _ShooseDetailsState extends State<ShooseDetails> {
     "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/715mVqglQWL._UL1140_.jpg"
   ];
   int? controller;
-  int count = 0;
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,9 +143,9 @@ class _ShooseDetailsState extends State<ShooseDetails> {
                     children: [
                       InkWell(
                         onTap: () {
-                          if (count == 0) {
+                          if (count == 1) {
                             setState(() {
-                              count = 0;
+                              count = 1;
                             });
                           } else {
                             setState(() {
@@ -211,19 +214,39 @@ class _ShooseDetailsState extends State<ShooseDetails> {
                 child: Card(
                   child: Row(
                     children: [
-                      InkWell(
+                      cheacker ? InkWell(
                         onTap: () {
+                          ws.wishlst.add("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/611qRhHS5NL._UL1140_.jpg");
+                          ws.wishprice.add(62662);
+                          ws.wishname.add("Air Jordan 4 Retro");
+                          cheacker= false;
                           setState(() {
-                            count += 1;
                           });
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2.1,
-                          child: Center(child: Text("ADD TO CART")),
+                          child: Center(child: Text("ADD TO WISH LIST")),
+                        ),
+                      ):InkWell(
+                        onTap: () {
+                          ws.wishlst.remove("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/611qRhHS5NL._UL1140_.jpg");
+                          ws.wishprice.remove(62662);
+                          ws.wishname.remove("Air Jordan 4 Retro");
+                          cheacker=true;
+                          setState(() {
+                          });
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/2.1,
+                          child: Center(child: Text("Remove TO WISH LIST")),
                         ),
                       ),
+
+
                       InkWell(
                         onTap: (){
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) => SuccessFullOrder()));
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2,

@@ -3,7 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'WishList.dart' as ws;
+import 'SuccessfullOrder.dart';
 
+bool cheacker = true;
 class OnePlusMobileDetails extends StatefulWidget {
   const OnePlusMobileDetails({Key? key}) : super(key: key);
 
@@ -21,7 +24,7 @@ class _OnePlusMobileDetailsState extends State<OnePlusMobileDetails> {
     "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/71kshdi72lL._SL1500_.jpg"
   ];
   int? controller;
-  int count = 0;
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,9 +143,9 @@ class _OnePlusMobileDetailsState extends State<OnePlusMobileDetails> {
                     children: [
                       InkWell(
                         onTap: () {
-                          if (count == 0) {
+                          if (count == 1) {
                             setState(() {
-                              count = 0;
+                              count = 1;
                             });
                           } else {
                             setState(() {
@@ -211,19 +214,39 @@ class _OnePlusMobileDetailsState extends State<OnePlusMobileDetails> {
                 child: Card(
                   child: Row(
                     children: [
-                      InkWell(
+                      cheacker ? InkWell(
                         onTap: () {
+                          ws.wishlst.add("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/71AvQd3VzqL._SL1500_.jpg");
+                          ws.wishprice.add(18999);
+                          ws.wishname.add("OnePlus Nord CE 2 Lite 5G");
+                          cheacker=false;
                           setState(() {
-                            count += 1;
                           });
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2.1,
-                          child: Center(child: Text("ADD TO CART")),
+                          child: Center(child: Text("ADD TO WISH LIST")),
+                        ),
+                      ) : InkWell(
+                        onTap: () {
+                          ws.wishlst.remove("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/71AvQd3VzqL._SL1500_.jpg");
+                          ws.wishprice.remove(18999);
+                          ws.wishname.remove("OnePlus Nord CE 2 Lite 5G");
+                          cheacker = true;
+                          setState(() {
+                          });
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/2.1,
+                          child: Center(child: Text("REMOVE TO WISH LIST")),
                         ),
                       ),
+
+
                       InkWell(
                         onTap: (){
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) => SuccessFullOrder()));
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2,

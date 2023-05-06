@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:mcaproject/ProductUI.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import 'SuccessfullOrder.dart';
+import 'WishList.dart' as ws;
+
+bool cheacker=true;
+
 class CameraDetails extends StatefulWidget {
   const CameraDetails({Key? key}) : super(key: key);
 
@@ -212,9 +217,12 @@ class _CameraDetailsState extends State<CameraDetails> {
                 child: Card(
                   child: Row(
                     children: [
-                      InkWell(
+                      cheacker ? InkWell(
                         onTap: (){
-                        count+=1;
+                          ws.wishlst.add("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/81WtQ64-SOL._SL1500_.jpg");
+                          ws.wishprice.add(25000);
+                          ws.wishname.add("Camera");
+                          cheacker=false;
                         setState(() {
 
                         });
@@ -222,11 +230,30 @@ class _CameraDetailsState extends State<CameraDetails> {
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2.1,
-                          child: Center(child: Text("ADD TO CART")),
+                          child: Center(child: Text("ADD TO WISHLIST")),
+                        ),
+                      ) : InkWell(
+                        onTap: (){
+                          ws.wishlst.remove("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/81WtQ64-SOL._SL1500_.jpg");
+                          ws.wishprice.remove(25000);
+                          ws.wishname.remove("Camera");
+                          cheacker=true;
+                          setState(() {
+
+                          });
+
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/2.1,
+                          child: Center(child: Text("Remove TO WISHLIST")),
                         ),
                       ),
+
                       InkWell(
                         onTap: (){
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) => SuccessFullOrder()));
+
                         },
                         child: Container(
                            width: MediaQuery.of(context).size.width/2,

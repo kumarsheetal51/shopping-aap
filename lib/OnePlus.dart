@@ -3,7 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'WishList.dart' as ws;
+import 'SuccessfullOrder.dart';
 
+bool cheacker=true;
 class OnePlusDetails extends StatefulWidget {
   const OnePlusDetails({Key? key}) : super(key: key);
 
@@ -26,7 +29,7 @@ class _OnePlusDetailsState extends State<OnePlusDetails> {
     "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/51PDeyFzo1L._SL1500_.jpg"
   ];
   int? controller;
-  int count = 0;
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,9 +148,9 @@ class _OnePlusDetailsState extends State<OnePlusDetails> {
                     children: [
                       InkWell(
                         onTap: () {
-                          if (count == 0) {
+                          if (count == 1) {
                             setState(() {
-                              count = 0;
+                              count = 1;
                             });
                           } else {
                             setState(() {
@@ -216,19 +219,39 @@ class _OnePlusDetailsState extends State<OnePlusDetails> {
                 child: Card(
                   child: Row(
                     children: [
-                      InkWell(
+                      cheacker ? InkWell(
                         onTap: () {
+                          ws.wishlst.add("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/514NPRZ1AQL._SL1500_.jpg");
+                          ws.wishprice.add(2799);
+                          ws.wishname.add("OnePlus Nord Buds");
+                          cheacker = false;
                           setState(() {
-                            count += 1;
                           });
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2.1,
-                          child: Center(child: Text("ADD TO CART")),
+                          child: Center(child: Text("ADD TO WISH LIST")),
+                        ),
+                      ) : InkWell(
+                        onTap: () {
+                          ws.wishlst.remove("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/514NPRZ1AQL._SL1500_.jpg");
+                          ws.wishprice.remove(2799);
+                          ws.wishname.remove("OnePlus Nord Buds");
+                          cheacker = true;
+                          setState(() {
+                          });
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/2.1,
+                          child: Center(child: Text("REMOVE TO WISH LIST")),
                         ),
                       ),
+
+
                       InkWell(
                         onTap: (){
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) => SuccessFullOrder()));
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2,

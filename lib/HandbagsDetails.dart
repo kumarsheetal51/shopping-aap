@@ -3,6 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'WishList.dart' as ws;
+import 'SuccessfullOrder.dart';
+
+bool cheacker=true;
 
 class HandbagsDetails extends StatefulWidget {
   const HandbagsDetails({Key? key}) : super(key: key);
@@ -21,7 +25,7 @@ class _HandbagsDetailsState extends State<HandbagsDetails> {
     "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/71t8l1y3n4L._UL1500_.jpg"
   ];
   int? controller;
-  int count = 0;
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,9 +58,7 @@ class _HandbagsDetailsState extends State<HandbagsDetails> {
       body:
 
       Stack(
-
         children: [
-
           SingleChildScrollView(
             child: Column(
               children: [
@@ -140,9 +142,9 @@ class _HandbagsDetailsState extends State<HandbagsDetails> {
                     children: [
                       InkWell(
                         onTap: () {
-                          if (count == 0) {
+                          if (count == 1) {
                             setState(() {
-                              count = 0;
+                              count = 1;
                             });
                           } else {
                             setState(() {
@@ -189,10 +191,6 @@ class _HandbagsDetailsState extends State<HandbagsDetails> {
                     ],
                   ),
                 ),
-
-
-
-
                 Container(
                   height: MediaQuery.of(context).size.height/8,
 
@@ -211,19 +209,40 @@ class _HandbagsDetailsState extends State<HandbagsDetails> {
                 child: Card(
                   child: Row(
                     children: [
-                      InkWell(
+                      cheacker ? InkWell(
                         onTap: () {
+                          ws.wishlst.add("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/71Raw8VUk5L._UL1500_.jpg");
+                          ws.wishprice.add(1399);
+                          ws.wishname.add("INOVERA Handags");
+                          cheacker=false;
+
                           setState(() {
-                            count += 1;
                           });
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2.1,
-                          child: Center(child: Text("ADD TO CART")),
+                          child: Center(child: Text("ADD TO WISH LIST")),
+                        ),
+                      ) : InkWell(
+                        onTap: () {
+                          ws.wishlst.remove("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/71Raw8VUk5L._UL1500_.jpg");
+                          ws.wishprice.remove(1399);
+                          ws.wishname.remove("INOVERA Handags");
+                          cheacker=true;
+                          setState(() {
+                          });
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/2.1,
+                          child: Center(child: Text("Remove TO WISH LIST")),
                         ),
                       ),
+
+
                       InkWell(
                         onTap: (){
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) => SuccessFullOrder()));
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width/2,
